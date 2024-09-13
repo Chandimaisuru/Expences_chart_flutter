@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:untitled/model/expence.dart';
+import 'package:untitled/widgets/expence_tile.dart';
 
 
 class ExpenseList extends StatelessWidget {
@@ -19,50 +20,10 @@ class ExpenseList extends StatelessWidget {
               itemCount: expense_list.length,
               itemBuilder: (BuildContext context, int index) {
 
-                return Card(
-
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 24
-                    ),
-                    child: Column(
-                    
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                    
-                      children: [
-                    
-                         Text(
-                          expense_list[index].title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                         ),
-                    
-                         const SizedBox(
-                          height: 6,
-                         ),
-                    
-                         Row(
-                    
-                          children: [
-                    
-                            Text(expense_list[index].amount.toString()),
-                    
-                            const Spacer(),
-                            
-                            const Icon(Icons.trending_down),
-                    
-                            const SizedBox(
-                    
-                              width: 6,
-                    
-                            ),
-                    
-                            Text(expense_list[index].date.toString())
-                          ],
-                    
-                         )
-                      ],
-                    ),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: ExpenseTile(
+                    expenceModel:expense_list[index] ,
                   ),
                 );
               },
