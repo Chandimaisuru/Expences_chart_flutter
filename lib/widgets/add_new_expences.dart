@@ -17,6 +17,38 @@ class _AddnewExpencesState extends State<AddnewExpences> {
   final amountController =TextEditingController();
   Category selectCategory = Category.leasure;
 
+  final DateTime initialDate = DateTime.now();
+  final DateTime firstDate =DateTime(DateTime.now().year-1,DateTime.now().month,DateTime.now().day);
+  final DateTime lastDate =DateTime(DateTime.now().year+1,DateTime.now().month,DateTime.now().day);
+
+  DateTime selectDate = DateTime.now();
+
+
+  // date picke-----------------
+
+ Future<void> openDataModal() async {
+  try{
+      final pickDate = await showDatePicker(
+        context: context, 
+        initialDate: initialDate,
+        firstDate: firstDate,
+        lastDate: lastDate
+        );
+
+          setState(() {
+            selectDate=pickDate!;
+          });
+        
+
+
+
+  }catch(err){
+      print(err.toString());
+  }
+ }
+
+
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -58,17 +90,17 @@ class _AddnewExpencesState extends State<AddnewExpences> {
                     keyboardType: TextInputType.number,
                   ),
                 ),
-                const SizedBox(
-                  width: 80,
+                // const SizedBox(
+                //   width: 80,
                   
-                ),
+                // ),
                 Expanded(child: Row(
                   
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                    
-                    const Text("20124/9/16"),
-                    IconButton(onPressed: (){},
+                    Text(formatDate.format(selectDate)),
+                    IconButton(onPressed: openDataModal,
                      icon: const Icon(Icons.date_range_outlined))
                     ],
                 ))
