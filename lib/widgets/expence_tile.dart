@@ -41,7 +41,7 @@ class ExpenseTile extends StatelessWidget {
                     
                             const Spacer(),
                             
-                            const Icon(Icons.trending_down),
+                             Icon(CategoryIcons[expenceModel.category]),
                     
                             const SizedBox(
                     

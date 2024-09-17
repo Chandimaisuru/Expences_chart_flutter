@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/model/expence.dart';
+import 'package:untitled/widgets/add_new_expences.dart';
 import 'package:untitled/widgets/expence_list.dart';
 
 class Expences extends StatefulWidget {
@@ -20,6 +21,20 @@ class _ExpencesState extends State<Expences> {
    ExpenceModel(amount: 19.5, date: DateTime.now(), title: "Football", category: Category.travel),
 
   ];
+
+
+// function to open a model
+
+  void openAddExpences (){
+    showModalBottomSheet(
+      context: context,
+      builder: (context){
+
+          return AddnewExpences();
+      }
+      );
+  }
+
 
 
   @override
@@ -45,7 +60,7 @@ class _ExpencesState extends State<Expences> {
                   color: const Color.fromARGB(226, 216, 200, 20),
               ),
                      
-              child: IconButton(onPressed: (){}, 
+              child: IconButton(onPressed: openAddExpences, 
               icon:const Icon(Icons.add),
               color: const Color.fromARGB(246, 7, 7, 7),
               ),
