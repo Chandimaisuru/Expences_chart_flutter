@@ -5,7 +5,9 @@ import 'package:untitled/model/expence.dart';
 
 
 class AddnewExpences extends StatefulWidget {
-  const AddnewExpences({super.key});
+
+  final void Function(ExpenceModel expence) onAddExpence ;
+  const AddnewExpences({super.key,required this.onAddExpence});
 
   @override
   State<AddnewExpences> createState() => _AddnewExpencesState();
@@ -24,7 +26,7 @@ class _AddnewExpencesState extends State<AddnewExpences> {
   DateTime selectDate = DateTime.now();
 
 
-  // date picke-----------------
+  // date picker-----------------
 
  Future<void> openDataModal() async {
   try{
@@ -40,18 +42,51 @@ class _AddnewExpencesState extends State<AddnewExpences> {
           });
         
 
-
-
   }catch(err){
       print(err.toString());
   }
  }
 
+//  handle form submit--------------------------
+  
+  void handleFormSubmit (){
+
+      // final userAmount= double.parse(amountController.text);
+    
+      if(titleController.text.trim().isEmpty || amountController.text.isEmpty ){
+        showDialog(
+          context: context,
+          builder: (context){
+            return
+              AlertDialog(
+                 title: const Text("Enter valid Data"),
+                 content:const Text("Please enter the Valid data"), 
+                 actions: [
+                  TextButton(onPressed: (){
+                    Navigator.of(context).pop();
+                  }, 
+                  child: const Text("Close"))
+                 ],
+              
+            );
+          });
+      }else{
+
+        // save the data
+
+        ExpenceModel newExpence = ExpenceModel(amount: double.parse(amountController.text), date: selectDate, title: titleController.text, category:selectCategory);
+
+         widget.onAddExpence(newExpence);
+         Navigator.pop(context);
+      }
+  }
+
+
 
 
   @override
   void dispose() {
-    // TODO: implement dispose
+
     super.dispose();
     titleController.dispose();
     amountController.dispose();
@@ -80,7 +115,7 @@ class _AddnewExpencesState extends State<AddnewExpences> {
              Row(
               children: [
              Expanded(
-                  child: TextField(
+                  child:TextField(
                     controller: amountController,
                     decoration: const InputDecoration(
                       hintText: "Add your Amount",
@@ -88,6 +123,7 @@ class _AddnewExpencesState extends State<AddnewExpences> {
                             
                     ),
                     keyboardType: TextInputType.number,
+                         maxLength: 50,
                   ),
                 ),
                 // const SizedBox(
@@ -130,9 +166,9 @@ class _AddnewExpencesState extends State<AddnewExpences> {
                      mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       
-                       ElevatedButton(
+                    ElevatedButton(
                     
-                    onPressed: (){},
+                    onPressed:handleFormSubmit ,
                     style: const ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(Colors.greenAccent),
                      
@@ -144,7 +180,9 @@ class _AddnewExpencesState extends State<AddnewExpences> {
                    
                       ElevatedButton(
                     
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
                     style: const ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(Colors.redAccent),
                      

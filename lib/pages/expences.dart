@@ -22,6 +22,14 @@ class _ExpencesState extends State<Expences> {
 
   ];
 
+// add expence
+
+void onAddNewExpence(ExpenceModel expence){
+  
+  setState(() {
+    expenceList.add(expence);
+  });
+} 
 
 // function to open a model
 
@@ -30,7 +38,7 @@ class _ExpencesState extends State<Expences> {
       context: context,
       builder: (context){
 
-          return AddnewExpences();
+          return AddnewExpences(onAddExpence: onAddNewExpence,);
       }
       );
   }
