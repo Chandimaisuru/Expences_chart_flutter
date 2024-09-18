@@ -5,11 +5,14 @@ import 'package:untitled/widgets/expence_tile.dart';
 
 
 class ExpenseList extends StatelessWidget {
-  // ignore: non_constant_identifier_names
-  const ExpenseList({super.key,required this.expense_list});
-
-  // ignore: non_constant_identifier_names
+    // ignore: non_constant_identifier_names
   final List<ExpenceModel> expense_list;
+  final void Function (ExpenceModel expence) onDeleteExpence;
+  // ignore: non_constant_identifier_names
+  const ExpenseList({super.key,required this.expense_list,required this.onDeleteExpence});
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,15 @@ class ExpenseList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
 
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: ExpenseTile(
-                    expenceModel:expense_list[index] ,
+                  padding:  const EdgeInsets.symmetric(vertical: 5),
+                  child: Dismissible(
+                    key:ValueKey(expense_list[index]) ,
+                    onDismissed: (direction){
+                      onDeleteExpence(expense_list[index]);
+                    },
+                    child: ExpenseTile(
+                      expenceModel:expense_list[index] ,
+                    ),
                   ),
                 );
               },

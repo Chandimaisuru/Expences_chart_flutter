@@ -30,6 +30,11 @@ void onAddNewExpence(ExpenceModel expence){
     expenceList.add(expence);
   });
 } 
+void onDeleteExpence (ExpenceModel expence){
+  setState(() {
+    expenceList.remove(expence);
+  });
+}
 
 // function to open a model
 
@@ -78,7 +83,7 @@ void onAddNewExpence(ExpenceModel expence){
       ),
       body: Column(
         children: [
-          ExpenseList(expense_list: expenceList,),
+          ExpenseList(expense_list: expenceList,onDeleteExpence: onDeleteExpence ,),
         ],
       ),
     );
